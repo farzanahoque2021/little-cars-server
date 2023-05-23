@@ -34,6 +34,12 @@ async function run() {
             res.send(result);
         })
 
+        app.post('/addtoy', async (req, res) => {
+            const body = req.body;
+            const result = await carCollection.insertOne(body);
+            res.send(result);
+        })
+
 
 
 
