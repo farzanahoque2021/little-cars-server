@@ -40,6 +40,13 @@ async function run() {
             res.send(result);
         })
 
+        // to get user's added toy informations
+        app.get('/mytoys/:email', async (req, res) => {
+            const toys = await carCollection.find({
+                email: req.params.email,
+            }).toArray();
+            res.send(toys)
+        })
 
 
 
