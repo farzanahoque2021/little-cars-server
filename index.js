@@ -56,6 +56,14 @@ async function run() {
             res.send(toys)
         })
 
+        // to get my toy's data according to price in ascending order
+        app.get('/sortToysAscend/:email', async (req, res) => {
+            const toys = await carCollection.find({
+                email: req.params.email,
+            }).sort({ price: 1 }).toArray();
+            res.send(toys)
+        })
+
         app.get('/toy/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
