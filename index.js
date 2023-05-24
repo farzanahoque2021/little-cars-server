@@ -64,6 +64,7 @@ async function run() {
             res.send(toys)
         })
 
+        // to get information of a specific toy
         app.get('/toy/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
@@ -78,23 +79,30 @@ async function run() {
             res.send(toys)
         })
 
-        //     app.put('/updatedtoy/:id', async (req, res) => {
-        //         const id = req.params.id;
-        //         const filter = { _id: new ObjectId(id) }
-        //         const updatedToy = req.body;
-        //         const toy = {
-        //             $set: {
-        //                 name: updatedToy.name,
-        //                 price: updatedToy.price,
-        //                 quantity: updatedToy.quantity,
-        //                 rating: updatedToy.rating,
-        //                 details: updatedToy.details
-        //             }
-        //         }
+        app.get('/updatedtoy/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await carCollection.findOne(query);
+            res.send(result)
+        })
 
-        //     const result = await carCollection.updateOne(filter, toy, options);
-        //     res.send(result);
-        // })
+        app.put('/updatedtoy/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+
+            const updatedToy = req.body;
+            const toy = {
+                $set: {
+                    price: updatedToy.price,
+                    quantity: updatedToy.quantity,
+                    details: updatedToy.details
+                }
+            }
+
+            const result = await carCollection.updateOne(filter, toy, options);
+            res.send(result);
+        })
 
 
 
