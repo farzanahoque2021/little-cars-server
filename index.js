@@ -29,9 +29,9 @@ async function run() {
         const carCollection = client.db('littleCars').collection('cars');
 
 
-        const indexKeys = { name: 1 };
-        const indexOptions = { name: "toyName" };
-        const result = await carCollection.createIndex(indexKeys, indexOptions)
+        // const indexKeys = { name: 1 };
+        // const indexOptions = { name: "toyName" };
+        // const result = await carCollection.createIndex(indexKeys, indexOptions)
 
         app.get('/cars', async (req, res) => {
             const cursor = carCollection.find();
